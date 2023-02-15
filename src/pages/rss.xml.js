@@ -5,7 +5,7 @@ import {
 import {
   SITE_TITLE,
   SITE_DESCRIPTION
-} from '../consts';
+} from '../consts.ts';
 
 export async function get(context) {
   const posts = await getCollection('blog');
