@@ -3,12 +3,12 @@
     <div>
       <div>
         <div class="header" style="background: black;">
-          <div class="back" @click="back()">
+          <div class="back" @click="back">
             <span style="color: white;">
               返回首页
             </span>
           </div>
-          <div class="feedback" @click="feedback()">
+          <div class="feedback" @click="feedback">
             <img src="../assets/images/fankui.svg" alt="" srcset="">
           </div>
         </div>
@@ -17,10 +17,10 @@
         <div class="chatting-records">
           <div class="chatting-record" v-for="(item, index) in chattingRecords" :key="index">
             <component :is="item.createById == 0 ? BotMsgRow : MeMsgRow" :response="item.msgData.text"
-              :loading="loading" client:only/>
+              :loading="loading" client:load/>
           </div>
-          <MeMsgRow :response="promptOld" v-if="loading" client:only />
-          <BotMsgRow :slot="true" v-if="loading" client:only>
+          <MeMsgRow :response="promptOld" v-if="loading" client:load />
+          <BotMsgRow :slot="true" v-if="loading" client:laod>
             <template #content>
               思索中
               <!-- <el-icon class="is-loading">
