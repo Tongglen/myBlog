@@ -23,9 +23,9 @@
           <BotMsgRow :slot="true" v-if="loading" client:only>
             <template #content>
               思索中
-              <el-icon class="is-loading">
+              <!-- <el-icon class="is-loading">
                 <Loading />
-              </el-icon>
+              </el-icon> -->
             </template>
           </BotMsgRow>
         </div>
