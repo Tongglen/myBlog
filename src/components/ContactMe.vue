@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref, defineExpose } from 'vue'
+import { ref, Ref } from 'vue'
 let outerVisible: Ref<boolean> = ref(false);
 function show() {
     outerVisible.value = !outerVisible.value;
@@ -27,7 +27,7 @@ defineExpose({
 </script>
 
 <style scoped>
-::v-deep .el-dialog__body {
+:deep(.el-dialog__body) {
     padding: 10px;
 }
 
@@ -51,4 +51,5 @@ defineExpose({
     margin-left: 10%;
     margin-top: 20px;
     height: 50%;
-}</style>
+}
+</style>

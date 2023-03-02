@@ -154,7 +154,7 @@
     width: 20px;
   }
 
-  ::v-deep.el-header{
+  :deep(.el-header){
     position: fixed;
     top: 0;
     width: 100%;

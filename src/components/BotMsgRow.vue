@@ -19,7 +19,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { defineProps, ref } from "vue"
+import { ref } from "vue"
 // import axios from "axios";
 const props = defineProps({
     response: {

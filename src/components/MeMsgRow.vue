@@ -9,7 +9,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps, ref } from "vue"
 const props = defineProps({
   response: {
     type: String,
