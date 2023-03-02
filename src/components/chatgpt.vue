@@ -50,11 +50,35 @@
 import { ref, Ref, nextTick } from "vue";
 import axios from "axios";
 // import { getNowDate } from "../utils/time";
-import { msgSender, Chitchat, MsgStatus, msgDataType } from "../types/Main.type";
+// import { msgSender, Chitchat, MsgStatus, msgDataType } from "../types/Main.type";
 import BotMsgRow from "./BotMsgRow.vue";
 import MeMsgRow from "./MeMsgRow.vue";
 import ContactMe from "./ContactMe.vue";
 import { ElMessage } from "element-plus";
+ enum msgSender {
+  bot,
+  me,
+}
+ interface msgDataType{
+    text:string,
+    status?:MsgStatus
+}
+ interface Chitchat {
+  createById: msgSender;
+  msgData: msgDataType;
+  time: string;
+  avatar: string;
+  name: string;
+}
+ enum MsgStatus {
+  "error",
+  "success",
+  "waiting",
+  "sending",
+  "sent",
+  "failed",
+}
+
 
 const chattingRecords = ref<Chitchat[]>([]);
 const loading: Ref<boolean> = ref<boolean>(false);
@@ -135,6 +159,8 @@ function back() {
   console.log(1)
 }
 function feedback() {}
+
+
 </script>
 
 <style scoped>
