@@ -49,7 +49,7 @@
 <script setup  lang="ts">
 import { ref, Ref, nextTick } from "vue";
 import axios from "axios";
-import { getNowDate } from "../utils/time";
+// import { getNowDate } from "../utils/time";
 import { msgSender, Chitchat, MsgStatus, msgDataType } from "../types/Main.type";
 import BotMsgRow from "./BotMsgRow.vue";
 import MeMsgRow from "./MeMsgRow.vue";
@@ -123,7 +123,7 @@ const submitForm = () =>{
 
 const saveUserAsk= (createById: msgSender, msgData: msgDataType)=> {
   let res: Chitchat = {
-    time: getNowDate(),
+    time: "",
     name: "",
     avatar: "",
     msgData,
