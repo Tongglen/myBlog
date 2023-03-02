@@ -19,15 +19,15 @@
             <component :is="item.createById == 0 ? BotMsgRow : MeMsgRow" :response="item.msgData.text"
               :loading="loading" client:load/>
           </div>
-          <MeMsgRow :response="promptOld" v-if="loading" client:load />
-          <BotMsgRow :slot="true" v-if="loading" client:laod>
+          <!-- <MeMsgRow :response="promptOld" v-if="loading" client:load />
+          <BotMsgRow :slot="true" v-if="loading" client:laod >
             <template #content>
               思索中
-              <!-- <el-icon class="is-loading">
+              <el-icon class="is-loading">
                 <Loading />
-              </el-icon> -->
+              </el-icon>
             </template>
-          </BotMsgRow>
+          </BotMsgRow> -->
         </div>
         <div class="footer">
           <div class="col-params">
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <ContactMe ref="contactMeEl" />
+    <!-- <ContactMe ref="contactMeEl" /> -->
   </div>
 </template>
 
@@ -60,7 +60,9 @@ export default {
 	setup() {
     const chattingRecords = ref<Chitchat[]>([]);
     const loading: Ref<boolean> = ref<boolean>(false);
-    const key = "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";
+
+    // const key = "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";
+    const key = "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";
     const prompt: Ref<string> = ref("");
     const promptOld: Ref<string> = ref("");
     const temperature = 1;
