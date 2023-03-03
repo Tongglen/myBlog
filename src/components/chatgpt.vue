@@ -83,8 +83,7 @@ import { ElMessage } from "element-plus";
 const chattingRecords = ref<Chitchat[]>([]);
 const loading: Ref<boolean> = ref<boolean>(false);
 
-const key = "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";
-// const key = "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";
+const key = "";
 const prompt: Ref<string> = ref("");
 const promptOld: Ref<string> = ref("");
 const temperature = 1;
