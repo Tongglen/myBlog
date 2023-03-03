@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Plum from '../components/plum.vue';
+
 // import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
@@ -12,9 +13,11 @@ import Plum from '../components/plum.vue';
     <BaseHead title={} description={} />
   </head>
   <body>
-    <Header title={} />
     <Plum client:load />
-    <main>朱怼怼？朱小刀？</main>
+    <Header title={} />
+    <main>
+      <div class="fixed">🐷怼怼</div>
+    </main>
     <Footer />
   </body>
 </html>
