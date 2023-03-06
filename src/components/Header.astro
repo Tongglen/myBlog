@@ -1,5 +1,7 @@
 ---
 import HeaderLink from './HeaderLink.astro';
+import Plum from '../components/plum.vue';
+
 // import { SITE_TITLE } from '../consts';
 ---
 
@@ -7,6 +9,8 @@ import HeaderLink from './HeaderLink.astro';
   <h2>
     <!-- {SITE_TITLE} -->
   </h2>
+  <Plum client:load />
+
   <nav>
     <HeaderLink href="/">Home</HeaderLink>
     <HeaderLink href="/blog">Blog</HeaderLink>

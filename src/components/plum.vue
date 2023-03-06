@@ -5,7 +5,7 @@ import {ref, reactive, onMounted, computed} from 'vue'
 const r180 = Math.PI
 const r90 = Math.PI / 2
 const r15 = Math.PI / 12
-// const color = '#88888825'  // 颜色修改
+// const color = '#88888825'
 const color = 'green'
 const el = ref<HTMLCanvasElement | null>(null)
 const { random } = Math
@@ -106,7 +106,7 @@ const mask = computed(() => 'radial-gradient(circle, transparent, black);')
   <div
     class="fixed top-0 bottom-0 left-0 right-0 pointer-events-none"
     style="z-index: -1"
-    :style="`mask-image: ${mask};--webkit-mask-image: ${mask};`"
+    :style="`-webkit-mask-image: ${mask};--webkit-mask-image: ${mask};`"
   >
     <canvas ref="el" width="400" height="400" />
   </div>
