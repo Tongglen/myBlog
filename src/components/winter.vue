@@ -2,10 +2,6 @@
 paper
   .box.centered.overflow-hidden(ref='box')
 
-note
-  p.font-bold hands-on <a href='https://threejs.org/' target='_blank'>three.js</a>
-  br
-  p following <a href='https://tympanus.net/codrops/2020/03/17/create-a-wave-motion-effect-on-an-image-with-three-js/' target='_blank'>this guide</a>
 </template>
 
 <script setup lang='ts'>
@@ -15,16 +11,17 @@ note
 import { onMounted, ref } from 'vue'
 import { useRafFn } from '@vueuse/core'
 import * as THREE from 'three'
+import img from '../assets/images/winter.jpg'
 
 const box = ref<HTMLElement | null>(null)
 
 const fragmentShader = `
-precision mediump float;
-
 varying vec2 vUv;
+uniform sampler2D uTexture;
 
 void main() {
-  gl_FragColor = vec4(0., 0., 0., 1.);
+  vec3 texture = texture2D(uTexture, vUv).rgb;
+  gl_FragColor = vec4(texture, 1.);
 }
 `
 
@@ -34,16 +31,6 @@ precision mediump float;
 varying vec2 vUv;
 uniform float uTime;
 
-//
-// Description : Array and textureless GLSL 2D/3D/4D simplex
-//               noise functions.
-//      Author : Ian McEwan, Ashima Arts.
-//  Maintainer : ijm
-//     Lastmod : 20110822 (ijm)
-//     License : Copyright (C) 2011 Ashima Arts. All rights reserved.
-//               Distributed under the MIT License. See LICENSE file.
-//               https://github.com/ashima/webgl-noise
-//
 
 vec3 mod289(vec3 x) {
   return x - floor(x * (1.0 / 289.0)) * 289.0;
@@ -164,12 +151,14 @@ onMounted(async() => {
   const geometry = new THREE.PlaneGeometry(2, 2, 16, 16)
   const material = new THREE.ShaderMaterial({
     vertexShader,
-    fragmentShader,
-    uniforms: {
-      uTime: { value: 0.0 },
-    },
-    wireframe: true,
-  })
+      fragmentShader,
+      uniforms: {
+        uTime: { value: 0.0 },
+        uTexture: { value: new THREE.TextureLoader().load(img) }
+      },
+      // wireframe: true,
+      side: THREE.DoubleSide
+    });
   const mesh = new THREE.Mesh(geometry, material)
   scene.add(mesh)
 
