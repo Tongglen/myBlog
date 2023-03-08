@@ -1,8 +1,31 @@
 ---
+import Spring from '../components/spring.vue';
+import Summer from '../components/summer.vue';
+import Winter from '../components/winter.vue';
+
 const today = new Date();
+
+let currentMonth = today.getMonth() + 1;
+
+// 季节
+let season = '';
+if (currentMonth > 0 && currentMonth < 4) {
+  season = 'Spring';
+} else if (currentMonth > 3 && currentMonth < 7) {
+  season = 'Summer';
+} else if (currentMonth > 6 && currentMonth < 10) {
+  season = 'Autumn';
+} else {
+  season = 'Winter';
+}
 ---
 
 <footer>
+  {season === 'Spring' && <Spring client:load />}
+  {season === 'Summer' && <Summer client:load />}
+  {season === 'Autumn' && <Spring client:load />}
+  {season === 'Winter' && <Winter client:load />}
+
   &copy; {today.getFullYear()} Allen. All rights reserved.
 </footer>
 <style>

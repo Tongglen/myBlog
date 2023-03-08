@@ -6,7 +6,7 @@ const r180 = Math.PI
 const r90 = Math.PI / 2
 const r15 = Math.PI / 12
 // const color = '#88888825'
-const color = 'green'
+let color = 'green'
 const el = ref<HTMLCanvasElement | null>(null)
 const { random } = Math
 const size = reactive(useWindowSize())
@@ -51,7 +51,6 @@ onMounted(async () => {
       ctx.textBaseline = 'middle'
       ctx.fillText('🌸', nx, ny)
     }
-
     ctx.stroke()
     const rad1 = rad + random() * r15
     const rad2 = rad - random() * r15
