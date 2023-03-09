@@ -5,13 +5,14 @@ import {ref, reactive, onMounted, computed} from 'vue'
 const r180 = Math.PI
 const r90 = Math.PI / 2
 const r15 = Math.PI / 12
-
-let color = 'green'
+// 褐色
+let color = 'SaddleBrown'
 let flower = ''
 let currentMonth = new Date().getMonth() + 1;
 if(currentMonth > 2 && currentMonth < 6) {
   flower = '🌸'
 } else if(currentMonth > 5 && currentMonth < 9) {
+  color = 'green'
   flower = '🌼 '
 } else if(currentMonth > 8 && currentMonth < 10) {
   color = 'SaddleBrown'
