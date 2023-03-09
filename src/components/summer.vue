@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <div ref="box1" class="fixed top-0 left-0 right-0 pointer-events-none z--1" >
       <img class="h-62vh w-100%" :src="imgTop" alt="">
@@ -175,4 +175,4 @@ onMounted(async() => {
 
 </script>
 
-<style scoped></style>
+<style scoped></style> -->
