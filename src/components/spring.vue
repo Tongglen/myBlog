@@ -5,8 +5,21 @@ import {ref, reactive, onMounted, computed} from 'vue'
 const r180 = Math.PI
 const r90 = Math.PI / 2
 const r15 = Math.PI / 12
-// const color = '#88888825'
-let color = 'green'
+
+let color = 'SlateGray'
+let flower = '🌲'
+let currentMonth = new Date().getMonth() + 1;
+if(currentMonth > 2 && currentMonth < 6) {
+  flower = '🌸'
+} else if(currentMonth > 5 && currentMonth < 9) {
+  flower = '🌼 '
+} else if(currentMonth > 8 && currentMonth < 10) {
+  color = 'SaddleBrown'
+  flower = '🍁'
+} else {
+  color = '#88888825'
+  flower = ''
+}
 const el = ref<HTMLCanvasElement | null>(null)
 const { random } = Math
 const size = reactive(useWindowSize())
@@ -49,7 +62,7 @@ onMounted(async () => {
       ctx.font = 'bold 12px sans-serif'
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
-      ctx.fillText('🌸', nx, ny)
+      ctx.fillText(flower, nx, ny)
     }
     ctx.stroke()
     const rad1 = rad + random() * r15
