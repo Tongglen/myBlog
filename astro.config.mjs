@@ -5,10 +5,10 @@ import vue from '@astrojs/vue';
 import UnoCSS from 'unocss/astro';
 import preact from '@astrojs/preact';
 import '@unocss/reset/tailwind.css';
-// import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://example.com',
-  integrations: [mdx(), sitemap(), vue({}), UnoCSS({}), preact()]
+  integrations: [mdx(), sitemap(), vue({}), UnoCSS({}), preact()],
+
 });

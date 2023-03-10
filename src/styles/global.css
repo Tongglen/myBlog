@@ -83,6 +83,7 @@ blockquote {
 .card {
 	border-radius: 10px;
 	background-color: lightgoldenrodyellow;
+	opacity: 0.9;
 }
 
 .nav-link,
