@@ -5,7 +5,6 @@ import {ref, reactive, onMounted, computed} from 'vue'
 const r180 = Math.PI
 const r90 = Math.PI / 2
 const r15 = Math.PI / 12
-// 褐色
 let color = 'SaddleBrown'
 let flower = ''
 let currentMonth = new Date().getMonth() + 1;
