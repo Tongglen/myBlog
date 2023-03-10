@@ -16,8 +16,8 @@ const { title, description, cover, publishDate } = Astro.props;
         <img class="img-fluid card" width="100%" alt={title} src={cover} />
       </header>
       <main class="p-3 p-md-5">
-        <h1><a href="/">{title} <span class="cute">✏️</span></a></h1>
-        <h3>📝 {description}</h3>
+        <h3><a href="/">{title} <span class="cute">✏️</span></a></h3>
+        <h5>📝 {description}</h5>
         <p>⏰ {publishDate}</p>
         <p class="dotted"></p>
         <slot />

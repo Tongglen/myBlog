@@ -9,9 +9,9 @@ const { title, description, publishDate, cover, permalink, alt } = content;
 ---
 
 <BaseHead {title} {description} {cover} {permalink} />
+<BlogHeader />
 <body>
   <div class="container">
-    <BlogHeader />
     <BlogPost {title} {description} {cover} {publishDate} {alt}>
       <slot />
     </BlogPost>

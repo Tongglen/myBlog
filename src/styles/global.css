@@ -6,15 +6,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
 
 body {
-	margin: auto;
 	padding: 20px;
-	/* max-width: 80ch; */
 	text-align: left;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	line-height: 1.5;
 	color: #444;
 	font-family: 'Grape Nuts', cursive;
+	width: 100%;
 }
 
 h1,
@@ -122,4 +121,8 @@ p {
 
 .dashed {
 	border-style: dashed;
+}
+
+.container {
+	max-width: 90ch;
 }
