@@ -8,8 +8,7 @@
 </template>
 
 <script setup lang='ts'>
-// https://tympanus.net/codrops/2020/03/17/create-a-wave-motion-effect-on-an-image-with-three-js/
-// https://threejs.org/docs/#manual/en/introduction/Installation
+
 
 import { onMounted, ref } from 'vue'
 import { useRafFn } from '@vueuse/core'
