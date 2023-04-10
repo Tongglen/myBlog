@@ -15,7 +15,10 @@ const { post } = Astro.props;
     />
     <main class="card-content p-3">
       <p class="date">⏰ {post.frontmatter.publishDate}</p>
-      <h3>{post.frontmatter.title} <span class="cute">✏️</span></h3>
+      <h5 class="name">
+        {post.frontmatter.title}
+        <span class="cute">✏️</span>
+      </h5>
       <p>📝 {post.frontmatter.description}</p>
     </main>
   </a>

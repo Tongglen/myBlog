@@ -3,6 +3,7 @@
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
+@import url(../assets/rainbow.css);
 @import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
 
 body {
@@ -130,4 +131,24 @@ p {
 
 .container {
 	max-width: 90ch;
+}
+
+:root {
+	animation: rainbow 15s ease 0s infinite;
+	--vp-c-brand: #749c25;
+	--name-filter: blur(50px);
+	--vp-c-brand-next: #009ff7;
+}
+
+.name {
+	color: var(--vp-c-brand) !important;
+}
+
+.bg-image {
+	position: absolute;
+	border-radius: 50%;
+	width: 192px;
+	height: 60px;
+	background-image: linear-gradient(-45deg, var(--vp-c-brand) 30%, var(--vp-c-brand-next));
+	filter: var(--name-filter);
 }
