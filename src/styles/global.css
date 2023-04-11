@@ -133,6 +133,7 @@ p {
 	max-width: 90ch;
 }
 
+
 :root {
 	animation: rainbow 15s ease 0s infinite;
 	--vp-c-brand: #749c25;
@@ -140,7 +141,18 @@ p {
 	--vp-c-brand-next: #009ff7;
 }
 
+@keyframes filterFont {
+	from {
+		letter-spacing: -14px;
+	}
+
+	to {
+		letter-spacing: 2px;
+	}
+}
+
 .name {
+	animation: filterFont 3s forwards;
 	color: var(--vp-c-brand) !important;
 }
 
