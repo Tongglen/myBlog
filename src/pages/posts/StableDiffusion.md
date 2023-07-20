@@ -5,9 +5,9 @@ publishDate: 19 Jul 2023
 cover: https://antfu.me/images/ai-qrcode-101-multi-cn-original.png
 description: sttable diffusion入门
 ---
-## Stable Diffusion
+#### Stable Diffusion
 
-### 如果使用mac M芯片Arm构架需要把系统升级到最新的系统13，不然无法安装GFPGAN，会导致卡住
+##### 如果使用mac M芯片Arm构架需要把系统升级到最新的系统13，不然无法安装GFPGAN，会导致卡住
 
 - 一定要安装python3.10版本，不然无法使用
 
