@@ -11,7 +11,7 @@ let cover: any =
 let permalink: any = '';
 
 const { content } = Astro.props;
-let allPosts = await Astro.glob('./posts/*.mdx');
+let allPosts = await Astro.glob('./posts/*.md');
 allPosts = allPosts.sort(
   (a, b) =>
     new Date(b.frontmatter.publishDate).valueOf() -
