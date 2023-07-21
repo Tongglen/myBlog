@@ -2,7 +2,7 @@
 layout: ../../layouts/BlogPost.astro
 title: stable diffusion
 publishDate: 19 Jul 2023
-cover: ../../images/zlh.jpg
+cover: src/assets/images/zlh.jpg
 description: sttable diffusion入门
 ---
 #### Stable Diffusion
