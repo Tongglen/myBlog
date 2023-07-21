@@ -2,7 +2,7 @@
 layout: ../../layouts/BlogPost.astro
 title: stable diffusion
 publishDate: 19 Jul 2023
-cover: https://antfu.me/images/ai-qrcode-101-multi-cn-original.png
+cover: ../../images/zlh.jpg
 description: sttable diffusion入门
 ---
 #### Stable Diffusion
