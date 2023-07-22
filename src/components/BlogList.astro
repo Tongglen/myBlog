@@ -1,0 +1,42 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  publishDate: string;
+  cover: string;
+}
+
+let allPosts = await Astro.glob('../pages/posts/*.md');
+allPosts = allPosts.sort(
+  (a, b) =>
+    new Date(b.frontmatter.publishDate).valueOf() -
+    new Date(a.frontmatter.publishDate).valueOf()
+);
+---
+
+<div class="row mb-5 mt-1 p-3 prose m-auto">
+  <article class=" p-1">
+      {allPosts.map((post) => (
+        <a href={post.url} class="card p-1">
+          <li class="no-underline ~  flex col md:row gap-2 md:items-center" >
+            <div class="title text-lg leading-1.2em">
+              <span align-middle>{post.frontmatter.title}</span>
+            </div>
+            <span text-sm ws-nowrap class="op50">
+              {post.frontmatter.publishDate}
+            </span>
+          </li>
+        </a>
+      ))}
+  </article>
+</div>
+
+<style>
+  li {
+    list-style: none;
+  }
+
+  .prose {
+    max-width: 95ch;
+  }
+</style>

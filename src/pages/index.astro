@@ -1,22 +1,12 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import BlogHeader from '../components/BlogHeader.astro';
-import BlogPostPreview from '../components/BlogPostPreview.astro';
 import Footer from '../components/Footer.astro';
 
-let title: any = 'Allen Blog';
+let title: any = 'Allen Tong';
 let description: any = '';
-let cover: any =
-  'https://img.freepik.com/free-vector/m-commerce-3d-illustration-online-shopping-online-payment-delivery-concept-with-floating-elements-sale-banner-gift-box-discount-social-advertising-3d-vector-illustration_145666-1499.jpg';
+let cover: any ;
 let permalink: any = '';
-
-const { content } = Astro.props;
-let allPosts = await Astro.glob('./posts/*.md');
-allPosts = allPosts.sort(
-  (a, b) =>
-    new Date(b.frontmatter.publishDate).valueOf() -
-    new Date(a.frontmatter.publishDate).valueOf()
-);
 ---
 
 <BaseHead {title} {description} {cover} {permalink} />
@@ -31,9 +21,6 @@ allPosts = allPosts.sort(
         </span>
       </h3>
     </header>
-    <section class="row mb-5 p-3">
-      {allPosts.map((p) => <BlogPostPreview post={p} />)}
-    </section>
   </main>
   <Footer />
 </body>

@@ -4,7 +4,7 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 @import url(../assets/rainbow.css);
-@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap'); */
 
 body {
 	padding: 20px;
@@ -26,14 +26,6 @@ h6,
 strong,
 b {
 	color: #222;
-}
-
-a {
-	color: #3273dc;
-}
-
-nav a {
-	margin-right: 10px;
 }
 
 textarea {
@@ -79,20 +71,13 @@ blockquote {
 	font-style: italic;
 }
 
-.dropdown-menu,
-.card {
-	border-radius: 10px;
-	background-color: lightgoldenrodyellow;
-	opacity: 0.9;
-}
-
-.nav-link,
+/* .nav-link,
 a:visited,
 a:hover,
 a:link {
 	color: black;
 	text-decoration: none;
-}
+} */
 
 h1 {
 	font-size: 60px;
@@ -130,7 +115,10 @@ p {
 }
 
 .container {
-	max-width: 90ch;
+	max-width: 65ch;
+	font-size: 1rem;
+	margin: auto;
+	line-height: 1.75;
 }
 
 

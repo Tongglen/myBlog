@@ -1,7 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import BlogHeader from '../components/BlogHeader.astro';
-import BlogPostList from '../components/BlogList.astro';
+import BlogList from '../components/BlogList.astro';
 import Footer from '../components/Footer.astro';
 
 
@@ -13,7 +13,9 @@ const { title, description, publishDate, cover, permalink } = content;
 <BlogHeader />
 <body>
   <div class="container">
-    11
+    <BlogList {title} {description} {cover} {publishDate} >
+      <slot />
+    </BlogList>
   </div>
   <Footer />
 </body>
