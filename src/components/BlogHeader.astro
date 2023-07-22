@@ -1,5 +1,6 @@
 ---
   import { Icon } from 'astro-icon'
+  import ThemeIcon from './ThemeIcon.astro';
   import '../styles/global.css'
 
 ---
@@ -40,7 +41,7 @@
     <a href="/feed.xml" target="_blank" title="RSS" class="lt-md:hidden">
       <Icon name="la:rss-square" style="font-size:1.25rem; margin: -0.125rem -0.125rem;" />
     </a>
-    <toggle-theme />
+    <ThemeIcon />
   </div>
 </nav>
 <style>
