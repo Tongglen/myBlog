@@ -2,10 +2,15 @@
   import { Icon } from 'astro-icon'
   import ThemeIcon from './ThemeIcon.astro';
   import '../styles/global.css'
-
+  import Logo from './Logo.astro';
 ---
+<a
+  class="w-12 h-12 absolute xl:fixed  select-none outline-none"
+  href="/"
+>
+    <Logo />
+</a>
 <nav class="navbar p-3">
-  
   <div class="spacer" />
   <div class="right" >
     <a href="/posts" title="Blog">
