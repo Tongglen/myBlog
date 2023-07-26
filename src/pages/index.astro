@@ -10,14 +10,14 @@ let cover: any ;
 let permalink: any = '';
 ---
 
-<BaseHead {title} {description} {cover} {permalink} />
+<BaseHead {title} {description} {permalink} />
 <BlogHeader />
 <body class="text-gray-700 dark:text-gray-200">
   <main class="container ">
     <header class="col-12 p-3 p-md-3 prose m-auto">
-      <div style="width: 192px; height:60px;">
+      <div class="flex"   style="width: 120px; height:60px;">
         <div class="bg-image"></div>
-        <span class="headerMain">
+        <span class="headerMain self-center">
           <a class="name" href="/"> {title}</a>
         </span>
       </div>

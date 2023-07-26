@@ -129,7 +129,7 @@ p {
 
 @keyframes filterFont {
 	from {
-		letter-spacing: -14px;
+		letter-spacing: -6px;
 	}
 
 	to {
@@ -145,7 +145,7 @@ p {
 .bg-image {
 	position: absolute;
 	border-radius: 50%;
-	width: 192px;
+	width: 120px;
 	height: 60px;
 	background-image: linear-gradient(-45deg, var(--vp-c-brand) 30%, var(--vp-c-brand-next));
 	filter: var(--name-filter);
@@ -158,4 +158,8 @@ html.dark {
 
 .dark .nav-links a {
 	color: #fff;
+}
+
+.dark .path1 {
+	stroke: #fdfdfd;
 }
