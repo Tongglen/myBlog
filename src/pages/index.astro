@@ -3,11 +3,25 @@ import BaseHead from '../components/BaseHead.astro';
 import BlogHeader from '../components/BlogHeader.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { getLocale } from "astro-i18n-aut";
+import Spring from '../components/spring.vue';
 
 let title: any = 'Allen Tong';
 let description: any = '';
 let cover: any ;
 let permalink: any = '';
+const locale = getLocale(Astro.url);
+
+switch (locale) {
+  case "es":
+    title = "¡Hola Mundo!";
+    break;
+  case "fr":
+    title = "Bonjour Monde!";
+    break;
+  default:
+    title = "Hello World!";
+}
 ---
 
 <BaseHead {title} {description} {permalink} />
@@ -27,7 +41,7 @@ let permalink: any = '';
       <p>Through this page, I would like to share with you some projects I’ve done and what I’ve been through.</p>
       <p>Recently, I have been following  Anthony Fu for a couple months, his enthusiasm to coding and dedication really inspired me a lot. Now, I’m used to learning industry news from Twitter and digging myself in those forward-looking feature and innovative ecological technology.</p>
     </div>
-
+     <iframe src="/amap-polyline.html"></iframe>
   </main>
   <Footer />
 </body>

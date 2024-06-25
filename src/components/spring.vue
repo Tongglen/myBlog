@@ -8,18 +8,18 @@ const r15 = Math.PI / 12
 let color = '#88888825'
 let flower = ''
 let currentMonth = new Date().getMonth() + 1;
-// if(currentMonth > 2 && currentMonth < 6) {
-//   flower = '🌸'
-// } else if(currentMonth > 5 && currentMonth < 9) {
-//   color = 'green'
-//   flower = '🌸 '
-// } else if(currentMonth > 8 && currentMonth < 10) {
-//   color = 'SaddleBrown'
-//   flower = '🍁'
-// } else {
-//   color = '#88888825'
-//   flower = ''
-// }
+if(currentMonth > 2 && currentMonth < 6) {
+  flower = '🌼'
+} else if(currentMonth > 5 && currentMonth < 9) {
+  color = 'green'
+  flower = '🌸 '
+} else if(currentMonth > 8 && currentMonth < 10) {
+  color = 'SaddleBrown'
+  flower = '🍁'
+} else {
+  color = '#88888825'
+  flower = ''
+}
 const el = ref<HTMLCanvasElement | null>(null)
 const { random } = Math
 const size = reactive(useWindowSize())
