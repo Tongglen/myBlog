@@ -29,6 +29,7 @@ switch (locale) {
 <body class="text-gray-700 dark:text-gray-200">
   <main class="container ">
     <header class="col-12 p-3 p-md-3 prose m-auto">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <div class="flex"   style="width: 120px; height:60px;">
         <div class="bg-image"></div>
         <span class="headerMain self-center">
@@ -41,6 +42,7 @@ switch (locale) {
       <p>Through this page, I would like to share with you some projects I’ve done and what I’ve been through.</p>
       <p>Recently, I have been following  Anthony Fu for a couple months, his enthusiasm to coding and dedication really inspired me a lot. Now, I’m used to learning industry news from Twitter and digging myself in those forward-looking feature and innovative ecological technology.</p>
     </div>
+      <iframe src="/amap-polyline.html"></iframe>
   </main>
   <Footer />
 </body>
@@ -48,5 +50,10 @@ switch (locale) {
 <style>
 .prose {
   max-width: 95ch;
+}
+iframe {
+    width: 100%;
+    height: 100vh;
+    border: none;
 }
 </style>

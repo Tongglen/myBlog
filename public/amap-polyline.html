@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>高德地图带箭头折线示例</title>
+    <style>
+      html,
+      body,
+      #container {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=b751ecc1d97fa6c32ca4236b42b8cff9"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var map = new AMap.Map('container', {
+          zoom: 13,
+          center: [116.397428, 39.90923],
+        })
+
+        var path = [
+          [116.368904, 39.913423],
+          [116.382122, 39.901176],
+          [116.387271, 39.912501],
+          [116.398258, 39.9046],
+        ]
+
+        var polyline = new AMap.Polyline({
+          path: path,
+          isOutline: true,
+          outlineColor: '#ffeeff',
+          borderWeight: 3,
+          strokeColor: '#3366FF',
+          strokeOpacity: 1,
+          strokeWeight: 6,
+          strokeStyle: 'solid',
+          strokeDasharray: [10, 5],
+          lineJoin: 'round',
+          lineCap: 'round',
+          zIndex: 50,
+          showDir: true,
+          dirColor: 'red', // 方向箭头颜色
+        })
+
+        map.add(polyline)
+        map.setFitView([polyline])
+      })
+    </script>
+  </body>
+</html>
