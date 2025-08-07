@@ -5,54 +5,413 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
-    <title>高德地图带箭头折线示例</title>
+    <title>投资回本周期计算器</title>
     <style>
-      html,
-      body,
-      #container {
-        height: 100%;
+      body {
+        font-family: 'Arial', sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .input-section,
+      .result-section,
+      .chart-section {
+        flex: 1;
+        min-width: 300px;
+      }
+      table {
+        border-collapse: collapse;
         width: 100%;
-        margin: 0;
-        padding: 0;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      input {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .result-box {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-top: 20px;
+      }
+      .result-item {
+        margin-bottom: 10px;
+      }
+      .result-label {
+        font-weight: bold;
       }
     </style>
   </head>
   <body>
-    <div id="container"></div>
-    <script src="https://webapi.amap.com/maps?v=2.0&key=b751ecc1d97fa6c32ca4236b42b8cff9"></script>
+    <h1>投资回本周期计算器</h1>
+    <div class="container">
+      <div class="input-section">
+        <h2>输入参数</h2>
+        <table id="inputTable">
+          <tr>
+            <th>参数</th>
+            <th>值</th>
+          </tr>
+          <tr>
+            <td>总投资金额 (元)</td>
+            <td>
+              <input
+                type="number"
+                id="totalInvestment"
+                value="1900000" />
+            </td>
+          </tr>
+          <tr>
+            <td>剩余房租金额 (元)</td>
+            <td>
+              <input
+                type="number"
+                id="remainingRent"
+                value="400000" />
+            </td>
+          </tr>
+          <tr>
+            <td>每月营收 (元)</td>
+            <td>
+              <input
+                type="number"
+                id="monthlyRevenue"
+                value="1000000" />
+            </td>
+          </tr>
+
+          <tr>
+            <td>每月利润 (营收的19%):</td>
+            <!-- 每月利润 (营收的19%) 不可编辑，需要计算-->
+            <td>
+              <span id="monthlyProfit"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>每月人工成本 (元)</td>
+            <td>
+              <input
+                type="number"
+                id="monthlyLaborCost"
+                value="65000" />
+            </td>
+          </tr>
+          <tr>
+            <td>每月电费 (元)</td>
+            <td>
+              <input
+                type="number"
+                id="monthlyElectricity"
+                value="8500" />
+            </td>
+          </tr>
+          <tr>
+            <td>仓库库存金额 (元)</td>
+            <td>
+              <input
+                type="number"
+                id="inventoryValue"
+                value="300000" />
+            </td>
+          </tr>
+          <tr>
+            <td>12个月房租金额 (元)</td>
+            <td>
+              <input
+                type="number"
+                id="rentPerYear"
+                value="400000" />
+            </td>
+          </tr>
+        </table>
+        <button onclick="calculateAndDisplay()">计算</button>
+      </div>
+      <div class="result-section">
+        <h2>计算结果</h2>
+        <div class="result-box">
+          <div class="result-item"><span class="result-label">每月净现金流:</span> <span id="monthlyNetCashFlow"></span></div>
+          <!-- <div class="result-item"><span class="result-label">每月利润 (营收的19%):</span> <span id="monthlyProfit"></span></div> -->
+          <div class="result-item"><span class="result-label">去除仓库库存金额回本周期:</span> <span id="paybackPeriodWithoutInventory"></span></div>
+          <div class="result-item"><span class="result-label">总投资回本周期:</span> <span id="totalPaybackPeriod"></span></div>
+          <div class="result-item"><span class="result-label">24个月利润:</span> <span id="profit24Months"></span></div>
+          <div class="result-item"><span class="result-label">36个月利润:</span> <span id="profit36Months"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-section">
+      <h2>投资回报趋势</h2>
+      <canvas id="paybackChart"></canvas>
+    </div>
+
+    <!-- 先加载Chart.js库，再加载我们的脚本 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+      /**
+       * 计算回本周期的函数
+       * @param {number} totalInvestment - 总投资金额
+       * @param {number} remainingRent - 剩余房租金额
+       * @param {number} monthlyRevenue - 每个月营收
+       * @param {number} monthlyLaborCost - 每个月人工成本
+       * @param {number} monthlyElectricity - 每个月电费
+       * @param {number} inventoryValue - 仓库库存金额
+       * @param {number} rentPerYear - 12个月的房租金额
+       * @param {number} monthlyProfit - 每月利润
+       * @returns {Object} 包含两种回本周期和现金流数据的对象
+       */
+      function calculatePaybackPeriod(totalInvestment, remainingRent, monthlyProfit, monthlyRevenue, monthlyLaborCost, monthlyElectricity, inventoryValue, rentPerYear) {
+        // 计算每月净现金流
+
+        const monthlyNetCashFlow = monthlyProfit - monthlyLaborCost - monthlyElectricity
+
+        // 计算去除仓库库存金额后的总投资
+        const adjustedTotalInvestment = totalInvestment - inventoryValue
+
+        // 计算去除仓库库存金额的回本周期
+        let paybackPeriodWithoutInventory = adjustedTotalInvestment / monthlyNetCashFlow
+
+        // 计算剩余房租能用多少个月
+        const monthlyRentCost = rentPerYear / 12
+        let monthsOfRemainingRent = remainingRent / monthlyRentCost
+
+        // 计算总投资回本周期（考虑房租补充）和现金流趋势
+        let cumulativeCash = 0
+        let months = 0
+        let remainingInvestment = totalInvestment
+        let cashFlowData = []
+        let investmentData = []
+        let profit24Months = 0
+        let profit36Months = 0
+        let totalPaybackPeriod = null // 初始化回本周期为null
+
+        while (months <= 36) {
+          // 先计算到36个月
+          months++
+          cumulativeCash += monthlyNetCashFlow
+
+          // 记录24个月和36个月的利润
+          if (months === 24) {
+            profit24Months = cumulativeCash
+          }
+          if (months === 36) {
+            profit36Months = cumulativeCash
+          }
+
+          // 如果剩余房租用完，需要补充12个月房租
+          if (months >= monthsOfRemainingRent) {
+            remainingInvestment += rentPerYear
+            monthsOfRemainingRent += 12 // 补充后延长12个月
+            // 现金流增加12个月房租
+            cumulativeCash -= rentPerYear
+          }
+
+          remainingInvestment -= monthlyNetCashFlow
+          cashFlowData.push({ month: months, cumulativeCash: cumulativeCash })
+          investmentData.push({ month: months, remainingInvestment: Math.max(remainingInvestment, 0) })
+
+          // 如果投资已收回且尚未记录回本周期
+          if (remainingInvestment <= 0 && totalPaybackPeriod === null) {
+            totalPaybackPeriod = months // 记录实际回本周期
+          }
+        }
+
+        // 如果36个月后仍未收回投资，则设置为36个月
+        if (totalPaybackPeriod === null) {
+          totalPaybackPeriod = 36
+        }
+
+        return {
+          paybackPeriodWithoutInventory: paybackPeriodWithoutInventory.toFixed(2) + '个月',
+          totalPaybackPeriod: totalPaybackPeriod + '个月',
+          monthlyNetCashFlow: monthlyNetCashFlow.toFixed(2) + '元',
+          profit24Months: profit24Months,
+          profit36Months: profit36Months,
+          cashFlowData: cashFlowData,
+          investmentData: investmentData,
+          totalInvestment: totalInvestment,
+          // netProfit:
+        }
+      }
+
+      // 计算并显示结果
+      function calculateAndDisplay() {
+        // 获取输入值
+        const totalInvestment = parseFloat(document.getElementById('totalInvestment').value)
+        const remainingRent = parseFloat(document.getElementById('remainingRent').value)
+        const monthlyRevenue = parseFloat(document.getElementById('monthlyRevenue').value)
+        const monthlyLaborCost = parseFloat(document.getElementById('monthlyLaborCost').value)
+        const monthlyElectricity = parseFloat(document.getElementById('monthlyElectricity').value)
+        const inventoryValue = parseFloat(document.getElementById('inventoryValue').value)
+        const rentPerYear = parseFloat(document.getElementById('rentPerYear').value)
+        const monthlyProfit = monthlyRevenue * 0.192
+
+        // 计算结果
+        const result = calculatePaybackPeriod(totalInvestment, remainingRent, monthlyProfit, monthlyRevenue, monthlyLaborCost, monthlyElectricity, inventoryValue, rentPerYear)
+
+        // 显示结果
+
+        document.getElementById('monthlyNetCashFlow').textContent = result.monthlyNetCashFlow
+        document.getElementById('monthlyProfit').textContent = monthlyProfit
+        document.getElementById('paybackPeriodWithoutInventory').textContent = result.paybackPeriodWithoutInventory
+        document.getElementById('totalPaybackPeriod').textContent = result.totalPaybackPeriod
+        document.getElementById('profit24Months').textContent = result.profit24Months - totalInvestment + '元'
+        document.getElementById('profit36Months').textContent = result.profit36Months - totalInvestment + '元'
+
+        // 绘制图表
+        drawChart(result)
+      }
+
+      // 绘制投资回报趋势图
+      function drawChart(result) {
+        // 检查Canvas元素是否存在
+        const canvas = document.getElementById('paybackChart')
+        if (!canvas) {
+          console.error('Canvas元素不存在')
+          return
+        }
+
+        // 检查Chart.js是否已加载
+        if (typeof Chart === 'undefined') {
+          console.error('Chart.js未加载')
+          // 尝试重新加载Chart.js
+          const script = document.createElement('script')
+          script.src = 'https://cdn.jsdelivr.net/npm/chart.js'
+          script.onload = function () {
+            console.log('Chart.js重新加载成功')
+            drawChart(result)
+          }
+          document.head.appendChild(script)
+          return
+        }
+
+        const ctx = canvas.getContext('2d')
+
+        // 准备数据
+        const months = result.cashFlowData.map((item) => item.month)
+        const cumulativeCash = result.cashFlowData.map((item) => item.cumulativeCash)
+        const remainingInvestment = result.investmentData.map((item) => item.remainingInvestment)
+        // 修改净利润计算逻辑，确保正确处理索引
+        const netProfit = cumulativeCash.map((item, index) => {
+          // 当remainingInvestment>0时，净利润 = -remainingInvestment,
+          // 当remainingInvestment = 0时，净利润 = cumulativeCash -remainingInvestment[0]
+          if (remainingInvestment[index] > 0) {
+            return -remainingInvestment[index]
+          }
+          if (remainingInvestment[index] === 0) {
+            return cumulativeCash[index] - result.totalInvestment
+          }
+        })
+
+        // 创建或更新图表
+        if (window.paybackChart && window.paybackChart.destroy) {
+          window.paybackChart.destroy()
+        }
+
+        window.paybackChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: months,
+            datasets: [
+              {
+                label: '累计现金流 (元)',
+                data: cumulativeCash,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.1,
+              },
+              {
+                label: '剩余投资 (元)',
+                data: remainingInvestment,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.1,
+              },
+              // 新增：净利润数据集
+              {
+                label: '净利润 (元)',
+                data: netProfit,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: false, // 修改为false以更好地显示负数
+                title: {
+                  display: true,
+                  text: '金额 (元)',
+                },
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: '月份',
+                },
+              },
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: '投资回报趋势图',
+              },
+              legend: {
+                position: 'top',
+              },
+              tooltip: {
+                mode: 'index',
+                intersect: false,
+              },
+            },
+          },
+        })
+      }
+
+      // 确保DOM加载完成且Chart.js可用后再初始化
       document.addEventListener('DOMContentLoaded', function () {
-        var map = new AMap.Map('container', {
-          zoom: 13,
-          center: [116.397428, 39.90923],
-        })
-
-        var path = [
-          [116.368904, 39.913423],
-          [116.382122, 39.901176],
-          [116.387271, 39.912501],
-          [116.398258, 39.9046],
-        ]
-
-        var polyline = new AMap.Polyline({
-          path: path,
-          isOutline: true,
-          outlineColor: '#ffeeff',
-          borderWeight: 3,
-          strokeColor: '#3366FF',
-          strokeOpacity: 1,
-          strokeWeight: 6,
-          strokeStyle: 'solid',
-          strokeDasharray: [10, 5],
-          lineJoin: 'round',
-          lineCap: 'round',
-          zIndex: 50,
-          showDir: true,
-          dirColor: 'red', // 方向箭头颜色
-        })
-
-        map.add(polyline)
-        map.setFitView([polyline])
+        // 检查Chart是否已加载
+        function checkChartLoaded() {
+          if (window.Chart) {
+            calculateAndDisplay()
+          } else {
+            // 如果未加载，100毫秒后重试
+            setTimeout(checkChartLoaded, 100)
+          }
+        }
+        checkChartLoaded()
       })
     </script>
   </body>
